@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         ]
     var goalView:UIView!
     var startView:UIView!
+    var wallRectArray = [CGRect]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,7 @@ class ViewController: UIViewController {
                     let wallView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
                     wallView.backgroundColor = UIColor.blackColor()
                     view.addSubview(wallView)
+                    wallRectArray.append(wallView.frame)
                 case 2:
                     startView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
                     startView.backgroundColor = UIColor.greenColor()
@@ -62,15 +64,15 @@ class ViewController: UIViewController {
                 }
             }
         }
-        playerView = UIView(frame: CGRectMake(0 ,0 ,screenSize.width ,screenSize.height/60))
+        playerView = UIView(frame: CGRectMake(0 ,0 ,screenSize.width/30 ,screenSize.height/30))
         playerView.center = startView.center
         playerView.backgroundColor = UIColor.grayColor()
         self.view.addSubview(playerView)
         
         //MotionManagerを生成
         playerMotionManeger = CMMotionManager()
-        playerMotionManeger.accelerometerUpdateInterval = 0.02
-        
+        //加速度を取得する間隔
+        playerMotionManeger.accelerometerUpdateInterval = 0.025
         self.startAccelerometer()
     }
     
@@ -84,12 +86,13 @@ class ViewController: UIViewController {
         let view = UIView(frame: rect)
         
         let center = CGPoint(
-        x: offsetX + width * CGFloat(x),
-        y: offsetY + height * CGFloat(y)
+            x: offsetX + width * CGFloat(x),
+            y: offsetY + height * CGFloat(y)
         )
         view.center = center
         return view
     }
+    //実際に加速度を感知した時の動作
     func startAccelerometer(){
         let handler: CMAccelerometerHandler = {(accelerometerData:CMAccelerometerData?,error:NSError?) -> Void in
             
@@ -97,7 +100,7 @@ class ViewController: UIViewController {
             self.speedY += accelerometerData!.acceleration.y
             
             var posX = self.playerView.center.x + (CGFloat(self.speedX)/3)
-            var posY = self.playerView.center.y + (CGFloat(self.speedY)/3)
+            var posY = self.playerView.center.y - (CGFloat(self.speedY)/3)
             
             if posX <= (self.playerView.frame.width/2){
                 self.speedX = 0
@@ -113,12 +116,47 @@ class ViewController: UIViewController {
             }
             if posY >= (self.screenSize.height - (self.playerView.frame.height/2)){
                 self.speedY = 0
-                posX = (self.screenSize.height - (self.playerView.frame.height/2))
+                posY = (self.screenSize.height - (self.playerView.frame.height/2))
             }
-            
+            for wallRect in self.wallRectArray{
+                if (CGRectIntersectsRect(wallRect, self.playerView.frame)){
+                    self.gameCheck("Game Over", message: "壁に当たりました")
+                    return
+                }
+            }
+            if(CGRectIntersectsRect(self.goalView.frame, self.playerView.frame)){
+                self.gameCheck("Clear!", message: "クリアしました")
+                return
+            }
             self.playerView.center = CGPointMake(posX, posY)
         }
+        //加速度の開始
         playerMotionManeger.startAccelerometerUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: handler)
     }
+    func gameCheck(result:String,message:String){
+        //加速度を止める
+        if playerMotionManeger.accelerometerActive {
+            playerMotionManeger.stopAccelerometerUpdates()
+        }
+        let gameCheckAlert : UIAlertController = UIAlertController(title: result,message: message,preferredStyle: .Alert)
+        let retryAction = UIAlertAction(title: "もう一度",style: .Default){ action in
+            self.retry()
+        }
+        gameCheckAlert.addAction(retryAction)
+        self.presentViewController(gameCheckAlert,animated: true,completion: nil)
+    }
+    
+    func retry(){
+        //位置を初期化
+        playerView.center = startView.center
+        //加速度を始める
+        if !playerMotionManeger.accelerometerActive{
+            self.startAccelerometer()
+        }
+        //スピードを初期化
+        speedX = 0.0
+        speedY = 0.0
+    }
 }
+
 
