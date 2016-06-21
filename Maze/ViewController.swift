@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     var speedX:Double = 0.0
     var speedY:Double = 0.0
     
-    
     let screenSize = UIScreen.mainScreen().bounds.size
     let maze = [
         [1,0,0,0,1,0],
