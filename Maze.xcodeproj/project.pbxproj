@@ -12,6 +12,11 @@
 		4D41DF381D054263008DA79F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D41DF361D054263008DA79F /* Main.storyboard */; };
 		4D41DF3A1D054263008DA79F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D41DF391D054263008DA79F /* Assets.xcassets */; };
 		4D41DF3D1D054263008DA79F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D41DF3B1D054263008DA79F /* LaunchScreen.storyboard */; };
+		4D9451951D3C8D4D00065AFD /* iPhone2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D9451941D3C8D4D00065AFD /* iPhone2.png */; };
+		4D9451971D3CA53C00065AFD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9451961D3CA53C00065AFD /* GameViewController.swift */; };
+		4D9451991D3CA7F800065AFD /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9451981D3CA7F800065AFD /* EditViewController.swift */; };
+		4D94519B1D3CA80E00065AFD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D94519A1D3CA80E00065AFD /* ListViewController.swift */; };
+		4D94519D1D3CA82000065AFD /* SelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D94519C1D3CA82000065AFD /* SelectViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		4D41DF391D054263008DA79F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D41DF3C1D054263008DA79F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D41DF3E1D054263008DA79F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D9451941D3C8D4D00065AFD /* iPhone2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPhone2.png; path = ../../iPhone2.png; sourceTree = "<group>"; };
+		4D9451961D3CA53C00065AFD /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		4D9451981D3CA7F800065AFD /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		4D94519A1D3CA80E00065AFD /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		4D94519C1D3CA82000065AFD /* SelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,12 +64,17 @@
 		4D41DF311D054263008DA79F /* Maze */ = {
 			isa = PBXGroup;
 			children = (
+				4D9451941D3C8D4D00065AFD /* iPhone2.png */,
 				4D41DF321D054263008DA79F /* AppDelegate.swift */,
 				4D41DF341D054263008DA79F /* ViewController.swift */,
 				4D41DF361D054263008DA79F /* Main.storyboard */,
 				4D41DF391D054263008DA79F /* Assets.xcassets */,
 				4D41DF3B1D054263008DA79F /* LaunchScreen.storyboard */,
 				4D41DF3E1D054263008DA79F /* Info.plist */,
+				4D9451961D3CA53C00065AFD /* GameViewController.swift */,
+				4D9451981D3CA7F800065AFD /* EditViewController.swift */,
+				4D94519A1D3CA80E00065AFD /* ListViewController.swift */,
+				4D94519C1D3CA82000065AFD /* SelectViewController.swift */,
 			);
 			path = Maze;
 			sourceTree = "<group>";
@@ -124,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D41DF3D1D054263008DA79F /* LaunchScreen.storyboard in Resources */,
+				4D9451951D3C8D4D00065AFD /* iPhone2.png in Resources */,
 				4D41DF3A1D054263008DA79F /* Assets.xcassets in Resources */,
 				4D41DF381D054263008DA79F /* Main.storyboard in Resources */,
 			);
@@ -136,7 +152,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9451991D3CA7F800065AFD /* EditViewController.swift in Sources */,
 				4D41DF351D054263008DA79F /* ViewController.swift in Sources */,
+				4D9451971D3CA53C00065AFD /* GameViewController.swift in Sources */,
+				4D94519B1D3CA80E00065AFD /* ListViewController.swift in Sources */,
+				4D94519D1D3CA82000065AFD /* SelectViewController.swift in Sources */,
 				4D41DF331D054263008DA79F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +309,7 @@
 				4D41DF431D054263008DA79F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
