@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditViewController: UIViewController {
+class EditViewController: UIViewController,UITextFieldDelegate {
     var rows: Int!
     var cols: Int!
     var mode: Int!
@@ -114,7 +114,11 @@ class EditViewController: UIViewController {
         map = map2; rows = rs; cols = cs
         drawMap()
     }
-
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+        //returnキーを押したらキーボードを下げる
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +129,8 @@ class EditViewController: UIViewController {
         colsField.text = String(cols)
         map = Array<Int>(count: (rows*cols), repeatedValue: 0)
         drawMap()
-
+        colsField.delegate = self
+        rowsField.delegate = self
         // Do any additional setup after loading the view.
     }
 
