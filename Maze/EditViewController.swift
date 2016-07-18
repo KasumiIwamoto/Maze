@@ -118,8 +118,8 @@ class EditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        rows = rows ?? 8
-        cols = cols ?? 8
+        rows = rows ?? 10  //横
+        cols = cols ?? 6 //縦
         mode = mode ?? 0
         rowsField.text = String(rows)
         colsField.text = String(cols)

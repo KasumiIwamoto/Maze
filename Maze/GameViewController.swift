@@ -28,6 +28,7 @@ class GameViewController: UIViewController {
         [0,1,1,0,0,0],
         [0,0,1,1,1,2],
         ]
+    //0が道、1が壁、2がスタート、3がゴール
     var goalView:UIView!
     var startView:UIView!
     var wallRectArray = [CGRect]()
