@@ -10,6 +10,9 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var rows: Int!
+    var cols: Int!
+    var map: [Int]!
 
     var window: UIWindow?
 
