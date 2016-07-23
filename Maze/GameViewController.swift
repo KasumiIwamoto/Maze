@@ -62,7 +62,6 @@ class GameViewController: UIViewController {
                     break
                 }
             }
-            
         }
         playerView = UIView(frame: CGRectMake(0 ,0 ,screenSize.width/30 ,screenSize.height/30))
         playerView.center = startView.center
@@ -142,10 +141,13 @@ class GameViewController: UIViewController {
         let retryAction = UIAlertAction(title: "もう一度",style: .Default){ action in
             self.retry()
         }
-        gameCheckAlert.addAction(retryAction)
-        self.presentViewController(gameCheckAlert,animated: true,completion: nil)
+        let backAction = UIAlertAction(title: "戻る",style: .Default){ action in
+            self.back()
+            }
+            gameCheckAlert.addAction(retryAction)
+            self.presentViewController(gameCheckAlert,animated: true,completion: nil)
+        
     }
-    
     func retry(){
         //位置を初期化
         playerView.center = startView.center
@@ -157,8 +159,14 @@ class GameViewController: UIViewController {
         speedX = 0.0
         speedY = 0.0
     }
-    
-    
+    func back(){
+        performSegueWithIdentifier("backtoTop", sender: nil)
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "backtoTop"){
+            let game:ViewController = (segue.destinationViewController as? ViewController)!
+        }
+    }
     /*
      // MARK: - Navigation
      

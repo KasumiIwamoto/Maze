@@ -67,6 +67,7 @@ class SelectViewController: UIViewController {
             if fullPath.hasSuffix(".txt") {
                 do {
                     myTextView.text = try NSString(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding) as String
+                        print(myTextView.text)
                 } catch let error as NSError {
                     let alert: UIAlertController = UIAlertController(title:"Selected File",
                                                                      message: "cannot read .txt file: "+String(error),
