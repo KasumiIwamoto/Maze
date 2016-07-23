@@ -145,6 +145,7 @@ class GameViewController: UIViewController {
             self.back()
             }
             gameCheckAlert.addAction(retryAction)
+            gameCheckAlert.addAction(backAction)
             self.presentViewController(gameCheckAlert,animated: true,completion: nil)
         
     }

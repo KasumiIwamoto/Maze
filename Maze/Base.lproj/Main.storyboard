@@ -41,6 +41,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="XNR-E2-iee"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W8x-0y-LFa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -61,14 +62,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="Hei-Dg-Mgo" kind="popoverPresentation" identifier="backtoTop" id="GjE-JO-1mf">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
+                        <segue destination="Hei-Dg-Mgo" kind="push" identifier="backtoTop" id="6Xl-gZ-sB9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="315.5" y="387.5"/>
+            <point key="canvasLocation" x="465.5" y="270.5"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="gQ2-Gp-L9H">
