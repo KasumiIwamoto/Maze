@@ -47,7 +47,7 @@ class GameViewController: UIViewController {
                 switch maze[y][x]{
                 case 1:
                     let wallView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
-                    wallView.backgroundColor = UIColor.blackColor()
+                    wallView.backgroundColor = UIColor.redColor()
                     view.addSubview(wallView)
                     wallRectArray.append(wallView.frame)
                 case 2:
@@ -56,7 +56,7 @@ class GameViewController: UIViewController {
                     self.view.addSubview(startView)
                 case 3:
                     goalView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
-                    goalView.backgroundColor = UIColor.redColor()
+                    goalView.backgroundColor = UIColor.blueColor()
                     self.view.addSubview(goalView)
                 default:
                     break

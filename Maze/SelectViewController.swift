@@ -118,10 +118,10 @@ class SelectViewController: UIViewController {
         super.viewWillAppear(animated)
         setup()
         fileContents()        // Do any additional setup after loading the view.
-        let cellWidth = screenSize.width / CGFloat(maze[0].count)
+        let cellWidth = screenSize.width / CGFloat(maze[1].count)
         let cellHeight = screenSize.height / CGFloat(maze.count)
         
-        let celloffsetX = screenSize.width / CGFloat(maze[0].count*2)
+        let celloffsetX = screenSize.width / CGFloat(maze[1].count*2)
         let celloffsetY = screenSize.height / CGFloat(maze.count*2)
         
         for y in 0 ..< maze.count{
@@ -129,7 +129,7 @@ class SelectViewController: UIViewController {
                 switch maze[y][x]{
                 case 1:
                     let wallView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
-                    wallView.backgroundColor = UIColor.blackColor()
+                    wallView.backgroundColor = UIColor.redColor()
                     view.addSubview(wallView)
                     wallRectArray.append(wallView.frame)
                 case 2:
@@ -138,7 +138,7 @@ class SelectViewController: UIViewController {
                     self.view.addSubview(startView)
                 case 3:
                     goalView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
-                    goalView.backgroundColor = UIColor.redColor()
+                    goalView.backgroundColor = UIColor.blueColor()
                     self.view.addSubview(goalView)
                 default:
                     break
