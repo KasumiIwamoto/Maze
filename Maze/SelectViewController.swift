@@ -11,6 +11,10 @@ import UIKit
 class SelectViewController: UIViewController {
     var path: String!     // this value should be set from the outer
     var fullPath: String!
+    var maze: [[Int]] = []
+    let screenSize = UIScreen.mainScreen().bounds.size
+    var wallRectArray = [CGRect]()
+
     
     @IBOutlet weak var myLabel: UILabel!
     @IBOutlet weak var myTextView: UITextView!
@@ -67,8 +71,14 @@ class SelectViewController: UIViewController {
         } else if flag {
             if fullPath.hasSuffix(".txt") {
                 do {
-                    myTextView.text = try NSString(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding) as String
-                        print(myTextView.text)
+                    let text = try NSString(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding) as String
+                    text.enumerateLines({ (line, stop) in
+                        print("line...\(line)")
+                        print("stop...\(stop)")
+                        let item = line.componentsSeparatedByString(" ").map({str in Int(str)!})
+                        self.maze.append(item)
+                    })
+                    print(self.maze)
                 } catch let error as NSError {
                     let alert: UIAlertController = UIAlertController(title:"Selected File",
                                                                      message: "cannot read .txt file: "+String(error),
@@ -105,26 +115,67 @@ class SelectViewController: UIViewController {
         setup()
         fileContents()
     }
+    var goalView:UIView!
+    var startView:UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        let cellWidth = screenSize.width / CGFloat(maze[0].count)
+        let cellHeight = screenSize.height / CGFloat(maze.count)
+        
+        let celloffsetX = screenSize.width / CGFloat(maze[0].count*2)
+        let celloffsetY = screenSize.height / CGFloat(maze.count*2)
+        
+        for y in 0 ..< maze.count{
+            for x in 0 ..< maze[y].count{
+                switch maze[y][x]{
+                case 1:
+                    let wallView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
+                    wallView.backgroundColor = UIColor.blackColor()
+                    view.addSubview(wallView)
+                    wallRectArray.append(wallView.frame)
+                case 2:
+                    startView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
+                    startView.backgroundColor = UIColor.greenColor()
+                    self.view.addSubview(startView)
+                case 3:
+                    goalView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
+                    goalView.backgroundColor = UIColor.redColor()
+                    self.view.addSubview(goalView)
+                default:
+                    break
+                }
+            }
+        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func createView(x x:Int,y:Int,width:CGFloat,height:CGFloat,offsetX:CGFloat = 0,offsetY:CGFloat = 0)->UIView{
+        let rect = CGRect(x: 0,y: 0,width: width,height: height)
+        let view = UIView(frame: rect)
+        
+        let center = CGPoint(
+            x: offsetX + width * CGFloat(x),
+            y: offsetY + height * CGFloat(y)
+        )
+        view.center = center
+        return view
     }
-    */
 
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

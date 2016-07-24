@@ -19,7 +19,7 @@ class ListViewController: UIViewController,UITableViewDataSource,UITableViewDele
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section:Int) -> Int {
         if paths == nil {
-            return 1
+            return paths.count
         }
         return paths.count;
     }

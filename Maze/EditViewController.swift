@@ -44,10 +44,20 @@ class EditViewController: UIViewController,UITextFieldDelegate {
         let now = format.stringFromDate(NSDate())
         
         let path = NSHomeDirectory() + "/Documents/" + now + ".txt"
-        var contents: String = "\(rows) \(cols)"
-        for m in map {
-            contents = contents + " " + String(m)
+        
+        var contents: String = "\(rows) \(cols)\n"
+        for (index, m) in map.enumerate() {
+            print(index + 1)
+            if (index + 1) % cols  == 0{
+                print("hoge")
+                contents = contents + String(m) + "\n"
+            }else if (index + 1) % cols == 1{
+                contents = contents + String(m)
+            }else {
+                contents = contents + " " + String(m)
+            }
         }
+        print(contents)
         do {
             try contents.writeToFile(path, atomically:true, encoding:NSUTF8StringEncoding)
         } catch let error as NSError {
@@ -79,7 +89,6 @@ class EditViewController: UIViewController,UITextFieldDelegate {
         map[r * cols + c] = mode
         drawMap()
     }
-    
     func drawMap() {
         let sz:CGSize = myImageView.bounds.size
         let bw = sz.width / CGFloat(cols);
@@ -119,7 +128,6 @@ class EditViewController: UIViewController,UITextFieldDelegate {
         return true
         //returnキーを押したらキーボードを下げる
     }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         rows = rows ?? 10  //横
@@ -137,16 +145,14 @@ class EditViewController: UIViewController,UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
