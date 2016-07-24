@@ -276,16 +276,19 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c2U-Vm-SOA">
-                                <rect key="frame" x="36" y="107" width="311" height="537"/>
-                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Mf1-ZA-QgS">
+                                <rect key="frame" x="53" y="143" width="260" height="350"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="myImage" destination="c2U-Vm-SOA" id="uV6-ni-f9V"/>
                         <outlet property="myLabel" destination="PUM-qv-XWM" id="dva-h4-psP"/>
+                        <outlet property="myTextView" destination="Mf1-ZA-QgS" id="d2x-2R-gqD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKl-Vl-NKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
