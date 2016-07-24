@@ -161,7 +161,7 @@ class GameViewController: UIViewController {
         speedY = 0.0
     }
     func back(){
-        performSegueWithIdentifier("backtoTop", sender: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "backtoTop"){

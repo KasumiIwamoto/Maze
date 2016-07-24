@@ -100,13 +100,10 @@ class SelectViewController: UIViewController {
         fullPath = NSHomeDirectory() + "/Documents/" + path
         myLabel.text = path
     }
-    
     override func viewDidAppear(animated: Bool) {
         setup()
         fileContents()
     }
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
