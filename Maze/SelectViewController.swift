@@ -13,7 +13,8 @@ class SelectViewController: UIViewController {
     var fullPath: String!
     
     @IBOutlet weak var myLabel: UILabel!
-    @IBOutlet weak var myTextView: UITextView!
+    //@IBOutlet weak var myTextView: UITextView!
+    @IBOutlet weak var myImage : UIImageView!
     
     @IBAction func tapBack(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)

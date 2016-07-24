@@ -270,25 +270,22 @@
                                     <action selector="tapLoad:" destination="0aE-Qh-R5T" eventType="touchUpInside" id="qjW-f4-C4I"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ccJ-al-8RF">
-                                <rect key="frame" x="25" y="138" width="325" height="488"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUM-qv-XWM">
                                 <rect key="frame" x="53" y="28" width="279" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c2U-Vm-SOA">
+                                <rect key="frame" x="36" y="107" width="311" height="537"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="myImage" destination="c2U-Vm-SOA" id="uV6-ni-f9V"/>
                         <outlet property="myLabel" destination="PUM-qv-XWM" id="dva-h4-psP"/>
-                        <outlet property="myTextView" destination="ccJ-al-8RF" id="UKA-fY-bbP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKl-Vl-NKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
