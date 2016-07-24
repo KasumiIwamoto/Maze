@@ -14,11 +14,13 @@ class SelectViewController: UIViewController {
     var maze: [[Int]] = []
     let screenSize = UIScreen.mainScreen().bounds.size
     var wallRectArray = [CGRect]()
-
+    
     
     @IBOutlet weak var myLabel: UILabel!
     @IBOutlet weak var myTextView: UITextView!
     //@IBOutlet weak var myImage : UIImageView!
+    override func viewDidAppear(animated: Bool) {
+    }
     
     @IBAction func tapBack(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -98,7 +100,6 @@ class SelectViewController: UIViewController {
             presentViewController(alert,animated:true, completion:nil)
         }
     }
-    
     func setup() {
         if path == nil {
             let alert: UIAlertController = UIAlertController(title:"Selected File",
@@ -111,15 +112,12 @@ class SelectViewController: UIViewController {
         fullPath = NSHomeDirectory() + "/Documents/" + path
         myLabel.text = path
     }
-    override func viewDidAppear(animated: Bool) {
-        setup()
-        fileContents()
-    }
     var goalView:UIView!
     var startView:UIView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setup()
+        fileContents()        // Do any additional setup after loading the view.
         let cellWidth = screenSize.width / CGFloat(maze[0].count)
         let cellHeight = screenSize.height / CGFloat(maze.count)
         
@@ -148,12 +146,13 @@ class SelectViewController: UIViewController {
             }
         }
     }
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     func createView(x x:Int,y:Int,width:CGFloat,height:CGFloat,offsetX:CGFloat = 0,offsetY:CGFloat = 0)->UIView{
         let rect = CGRect(x: 0,y: 0,width: width,height: height)
         let view = UIView(frame: rect)
@@ -165,9 +164,6 @@ class SelectViewController: UIViewController {
         view.center = center
         return view
     }
-
-    
-    
     /*
      // MARK: - Navigation
      

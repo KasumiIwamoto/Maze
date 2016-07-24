@@ -40,10 +40,7 @@ class ListViewController: UIViewController,UITableViewDataSource,UITableViewDele
         paths = manager.subpathsAtPath(fullPath)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        refreshPaths()
-        self.myTableView.reloadData()
-    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         myTableView.delegate = self
@@ -52,6 +49,10 @@ class ListViewController: UIViewController,UITableViewDataSource,UITableViewDele
         fullPath = NSHomeDirectory() + "/Documents"
 
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(animated: Bool) {
+        refreshPaths()
+        self.myTableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
