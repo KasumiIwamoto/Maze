@@ -14,9 +14,12 @@ class GameViewController: UIViewController {
     var playerMotionManeger:CMMotionManager!
     var speedX:Double = 0.0
     var speedY:Double = 0.0
+    var path: String!     // this value should be set from the outer
+    var fullPath: String!
+    var maze: [[Int]] = []
     
     let screenSize = UIScreen.mainScreen().bounds.size
-    let maze = [
+    /*let maze =[
         [1,0,0,0,1,0],
         [1,0,1,0,1,0],
         [3,0,1,0,1,0],
@@ -27,7 +30,7 @@ class GameViewController: UIViewController {
         [0,0,0,0,1,1],
         [0,1,1,0,0,0],
         [0,0,1,1,1,2],
-        ]
+        ]*/
     //0が道、1が壁、2がスタート、3がゴール
     var goalView:UIView!
     var startView:UIView!
@@ -35,6 +38,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fileContents()
         // Do any additional setup after loading the view.
         let cellWidth = screenSize.width / CGFloat(maze[0].count)
         let cellHeight = screenSize.height / CGFloat(maze.count)
@@ -163,6 +167,43 @@ class GameViewController: UIViewController {
     func back(){
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    func fileContents() {
+        let manager:NSFileManager = NSFileManager.defaultManager()
+        var isDir: ObjCBool = false
+        let flag = manager.fileExistsAtPath(fullPath, isDirectory:&isDir)
+        if flag && Bool(isDir) {
+            //myTextView.text = "[[Directory]]"
+        } else if flag {
+            if fullPath.hasSuffix(".txt") {
+                do {
+                    let text = try NSString(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding) as String
+                    text.enumerateLines({ (line, stop) in
+                        print("line...\(line)")
+                        print("stop...\(stop)")
+                        let item = line.componentsSeparatedByString(" ").map({str in Int(str)!})
+                        self.maze.append(item)
+                    })
+                    print(self.maze)
+                } catch let error as NSError {
+                    let alert: UIAlertController = UIAlertController(title:"Selected File",
+                                                                     message: "cannot read .txt file: "+String(error),
+                                                                     preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title:"Cancel",style:UIAlertActionStyle.Cancel,handler:nil))
+                    presentViewController(alert,animated:true, completion:nil)
+                    
+                }
+            } else {
+                //myTextView.text = "[[not directory, but has no \".txt\" suffix]]"
+            }
+        } else {
+            let alert: UIAlertController = UIAlertController(title:"Selected File",
+                                                             message: "No such file exists",
+                                                             preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title:"Cancel",style:UIAlertActionStyle.Cancel,handler:nil))
+            presentViewController(alert,animated:true, completion:nil)
+        }
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "backtoTop"){
             let game:ViewController = (segue.destinationViewController as? ViewController)!
