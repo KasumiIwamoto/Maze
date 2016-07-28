@@ -42,7 +42,7 @@ class GameViewController: UIViewController {
         let celloffsetY = screenSize.height / CGFloat(maze.count*2)
         
         let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.number = number
+        number = appDelegate.number
         if number > 0{
             setup()
             fileContents()
