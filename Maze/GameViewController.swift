@@ -18,6 +18,7 @@ class GameViewController: UIViewController {
     var documentsPath: String!
     var paths: Array<String>!
     var path: String!
+    var number :Int!
     let screenSize = UIScreen.mainScreen().bounds.size
     var maze = [
         [2,1,0,0,0],
@@ -40,6 +41,12 @@ class GameViewController: UIViewController {
         let celloffsetX = screenSize.width / CGFloat(maze[0].count*2)
         let celloffsetY = screenSize.height / CGFloat(maze.count*2)
         
+        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.number = number
+        if number > 0{
+            setup()
+            fileContents()
+        }
         for y in 0 ..< maze.count{
             for x in 0 ..< maze[y].count{
                 switch maze[y][x]{
@@ -213,7 +220,7 @@ class GameViewController: UIViewController {
     }
     func setup() {
         if paths.count > 0{
-            path = paths[0]
+            path = paths[number-1]
         }
         if path == nil {
             let alert: UIAlertController = UIAlertController(title:"Selected File",

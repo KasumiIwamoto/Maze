@@ -33,6 +33,7 @@ class ListViewController: UIViewController,UITableViewDataSource,UITableViewDele
         let storyboard = UIStoryboard(name:"Main",bundle:nil)
         let controller: SelectViewController = storyboard.instantiateViewControllerWithIdentifier("SelectViewController") as! SelectViewController
         controller.path = paths[indexPath.row]
+        controller.number = indexPath.row + 1
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
