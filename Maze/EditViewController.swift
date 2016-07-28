@@ -122,6 +122,7 @@ class EditViewController: UIViewController,UITextFieldDelegate {
         }
         map = map2; rows = rs; cols = cs
         drawMap()
+        
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
