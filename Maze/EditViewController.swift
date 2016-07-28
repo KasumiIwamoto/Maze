@@ -45,7 +45,7 @@ class EditViewController: UIViewController,UITextFieldDelegate {
         
         let path = NSHomeDirectory() + "/Documents/" + now + ".txt"
         
-        var contents: String = "\(rows) \(cols)\n"
+        var contents: String = ""
         for (index, m) in map.enumerate() {
             print(index + 1)
             if (index + 1) % cols  == 0{
@@ -130,7 +130,7 @@ class EditViewController: UIViewController,UITextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        rows = rows ?? 10  //横
+        rows = rows ?? 7  //横
         cols = cols ?? 6 //縦
         mode = mode ?? 0
         rowsField.text = String(rows)

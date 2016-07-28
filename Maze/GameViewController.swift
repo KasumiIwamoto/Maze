@@ -18,7 +18,7 @@ class GameViewController: UIViewController {
     var documentsPath: String!
     var paths: Array<String>!
     var path: String!
-    var number :Int!
+    var number :Int! 
     let screenSize = UIScreen.mainScreen().bounds.size
     var maze = [
         [2,1,0,0,0],
@@ -35,49 +35,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         manager = NSFileManager.defaultManager()
         documentsPath = NSHomeDirectory() + "/Documents"
-        let cellWidth = screenSize.width / CGFloat(maze[0].count)
-        let cellHeight = (screenSize.height-20) / CGFloat(maze.count)
         
-        let celloffsetX = screenSize.width / CGFloat(maze[0].count*2)
-        let celloffsetY = screenSize.height / CGFloat(maze.count*2)
-        
-        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        number = appDelegate.number
-        if number > 0{
-            setup()
-            fileContents()
-        }
-        for y in 0 ..< maze.count{
-            for x in 0 ..< maze[y].count{
-                switch maze[y][x]{
-                case 1:
-                    let wallView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
-                    wallView.backgroundColor = UIColor.redColor()
-                    view.addSubview(wallView)
-                    wallRectArray.append(wallView.frame)
-                case 2:
-                    startView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
-                    startView.backgroundColor = UIColor.greenColor()
-                    self.view.addSubview(startView)
-                case 3:
-                    goalView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
-                    goalView.backgroundColor = UIColor.blueColor()
-                    self.view.addSubview(goalView)
-                default:
-                    break
-                }
-            }
-        }
-        playerView = UIView(frame: CGRectMake(0 ,0 ,screenSize.width/30 ,screenSize.height/30))
-        playerView.center = startView.center
-        playerView.backgroundColor = UIColor.grayColor()
-        self.view.addSubview(playerView)
-        
-        //MotionManagerを生成
-        playerMotionManeger = CMMotionManager()
-        //加速度を取得する間隔
-        playerMotionManeger.accelerometerUpdateInterval = 0.025
-        self.startAccelerometer()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -93,7 +51,7 @@ class GameViewController: UIViewController {
         
         let center = CGPoint(
             x: offsetX + width * CGFloat(x),
-            y: offsetY + 60 + height * CGFloat(y)
+            y: offsetY + 20 + height * CGFloat(y)
         )
         view.center = center
         return view
@@ -174,6 +132,51 @@ class GameViewController: UIViewController {
     }
     override func viewWillAppear(animated: Bool) {
         refreshPaths()
+        
+        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        number = appDelegate.number
+        if number > 0{
+            setup()
+            fileContents()
+        }
+        let cellWidth = screenSize.width / CGFloat(maze[0].count)
+        let cellHeight = screenSize.height / CGFloat(maze.count)
+        
+        let celloffsetX = screenSize.width / CGFloat(maze[0].count*2)
+        let celloffsetY = screenSize.height / CGFloat(maze.count*2)
+
+        
+        for y in 0 ..< maze.count{
+            for x in 0 ..< maze[y].count{
+                switch maze[y][x]{
+                case 1:
+                    let wallView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
+                    wallView.backgroundColor = UIColor.redColor()
+                    view.addSubview(wallView)
+                    wallRectArray.append(wallView.frame)
+                case 2:
+                    startView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
+                    startView.backgroundColor = UIColor.greenColor()
+                    self.view.addSubview(startView)
+                case 3:
+                    goalView = createView(x:x,y:y,width:cellWidth,height:cellHeight,offsetX:celloffsetX,offsetY:celloffsetY)
+                    goalView.backgroundColor = UIColor.blueColor()
+                    self.view.addSubview(goalView)
+                default:
+                    break
+                }
+            }
+        }
+        playerView = UIView(frame: CGRectMake(0 ,0 ,screenSize.width/30 ,screenSize.height/30))
+        playerView.center = startView.center
+        playerView.backgroundColor = UIColor.grayColor()
+        self.view.addSubview(playerView)
+        
+        //MotionManagerを生成
+        playerMotionManeger = CMMotionManager()
+        //加速度を取得する間隔
+        playerMotionManeger.accelerometerUpdateInterval = 0.025
+        self.startAccelerometer()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

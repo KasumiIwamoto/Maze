@@ -25,32 +25,21 @@ class SelectViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func tapLoad(sender: AnyObject) {
-        if let txt = myTextView.text {
-            let a:[String] = txt.componentsSeparatedByString(" ")
-            if a.count > 2 {
-                let rows = Int(a[0])
-                let cols = Int(a[1])
-                if (rows != nil) && (cols != nil) {
-                    var map = Array<Int>()
-                    for s in a {
-                        if let n = Int(s) {
-                            map.append(n)
-                        } else {
-                            return
-                        }
-                    }
-                    // success
-                    let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                    appDelegate.rows = rows
-                    appDelegate.cols = cols
-                    appDelegate.map = map
-                    appDelegate.number = number
-                    print("\(rows) \(cols) \(map.count)")
-                    dismissViewControllerAnimated(true, completion: nil)
-                }
-            }
+        let map:[Int] = maze[0]
+        if map.count == 2 {
+            let rows = map[0]
+            let cols = map[1]
+            
+            // success
+            let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.rows = rows
+            appDelegate.cols = cols
+            appDelegate.map = map
+            appDelegate.number = number
+            print("number...\(number)")
+            print("\(rows) \(cols) \(map.count)")
+            dismissViewControllerAnimated(true, completion: nil)
         }
-        
     }
     @IBAction func tapRemove(sender: AnyObject) {
         do {
@@ -119,7 +108,7 @@ class SelectViewController: UIViewController {
         setup()
         fileContents()        // Do any additional setup after loading the view.
         let cellWidth = screenSize.width / CGFloat(maze[1].count)
-        let cellHeight = (screenSize.height + 40) / CGFloat(maze.count)
+        let cellHeight = (screenSize.height + 80) / CGFloat(maze.count)
         
         let celloffsetX = screenSize.width / CGFloat(maze[1].count*2)
         let celloffsetY = screenSize.height / CGFloat(maze.count*2)
@@ -159,7 +148,7 @@ class SelectViewController: UIViewController {
         
         let center = CGPoint(
             x: offsetX + width * CGFloat(x),
-            y: offsetY + height * CGFloat(y)
+            y: offsetY + 80 + height * CGFloat(y)
         )
         view.center = center
         return view
