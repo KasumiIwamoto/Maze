@@ -19,27 +19,37 @@ class GameViewController: UIViewController {
     var maze: [[Int]] = []
     
     let screenSize = UIScreen.mainScreen().bounds.size
-    /*let maze =[
-        [1,0,0,0,1,0],
-        [1,0,1,0,1,0],
-        [3,0,1,0,1,0],
-        [1,1,1,0,0,0],
-        [1,0,0,1,1,0],
-        [0,0,1,0,0,0],
-        [0,1,1,0,1,0],
-        [0,0,0,0,1,1],
-        [0,1,1,0,0,0],
-        [0,0,1,1,1,2],
-        ]*/
+    /*var maze = [
+     [2,1,0,0,0],
+     [0,1,1,1,0],
+     [0,0,1,1,0],
+     [1,0,0,1,0],
+     [1,1,0,0,3],
+     ]*/
     //0が道、1が壁、2がスタート、3がゴール
     var goalView:UIView!
     var startView:UIView!
     var wallRectArray = [CGRect]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        fileContents()
-        // Do any additional setup after loading the view.
+        //let a:[Int] = ""
+        var rows:[Int] = []
+        var cols:[Int] = []
+        if (rows != nil) && (cols != nil) {
+            var map = Array<Int>()
+            // success
+            let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.rows = rows
+            appDelegate.cols = cols
+            appDelegate.map = map
+            //print("\(rows) \(cols) \(map.count)")
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        
+        
         let cellWidth = screenSize.width / CGFloat(maze[0].count)
         let cellHeight = screenSize.height / CGFloat(maze.count)
         
@@ -147,10 +157,10 @@ class GameViewController: UIViewController {
         }
         let backAction = UIAlertAction(title: "戻る",style: .Default){ action in
             self.back()
-            }
-            gameCheckAlert.addAction(retryAction)
-            gameCheckAlert.addAction(backAction)
-            self.presentViewController(gameCheckAlert,animated: true,completion: nil)
+        }
+        gameCheckAlert.addAction(retryAction)
+        gameCheckAlert.addAction(backAction)
+        self.presentViewController(gameCheckAlert,animated: true,completion: nil)
         
     }
     func retry(){
@@ -167,43 +177,6 @@ class GameViewController: UIViewController {
     func back(){
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    func fileContents() {
-        let manager:NSFileManager = NSFileManager.defaultManager()
-        var isDir: ObjCBool = false
-        let flag = manager.fileExistsAtPath(fullPath, isDirectory:&isDir)
-        if flag && Bool(isDir) {
-            //myTextView.text = "[[Directory]]"
-        } else if flag {
-            if fullPath.hasSuffix(".txt") {
-                do {
-                    let text = try NSString(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding) as String
-                    text.enumerateLines({ (line, stop) in
-                        print("line...\(line)")
-                        print("stop...\(stop)")
-                        let item = line.componentsSeparatedByString(" ").map({str in Int(str)!})
-                        self.maze.append(item)
-                    })
-                    print(self.maze)
-                } catch let error as NSError {
-                    let alert: UIAlertController = UIAlertController(title:"Selected File",
-                                                                     message: "cannot read .txt file: "+String(error),
-                                                                     preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title:"Cancel",style:UIAlertActionStyle.Cancel,handler:nil))
-                    presentViewController(alert,animated:true, completion:nil)
-                    
-                }
-            } else {
-                //myTextView.text = "[[not directory, but has no \".txt\" suffix]]"
-            }
-        } else {
-            let alert: UIAlertController = UIAlertController(title:"Selected File",
-                                                             message: "No such file exists",
-                                                             preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title:"Cancel",style:UIAlertActionStyle.Cancel,handler:nil))
-            presentViewController(alert,animated:true, completion:nil)
-        }
-    }
-
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "backtoTop"){
             let game:ViewController = (segue.destinationViewController as? ViewController)!
