@@ -135,6 +135,7 @@ class GameViewController: UIViewController {
         
         let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         number = appDelegate.number
+        print(number)
         if number > 0{
             setup()
             fileContents()

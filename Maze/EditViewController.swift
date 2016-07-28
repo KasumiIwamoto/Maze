@@ -50,7 +50,7 @@ class EditViewController: UIViewController,UITextFieldDelegate {
             print(index + 1)
             if (index + 1) % cols  == 0{
                 print("hoge")
-                contents = contents + String(m) + "\n"
+                contents = contents + " "+String(m) + "\n"
             }else if (index + 1) % cols == 1{
                 contents = contents + String(m)
             }else {

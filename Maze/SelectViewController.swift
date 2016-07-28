@@ -108,7 +108,7 @@ class SelectViewController: UIViewController {
         setup()
         fileContents()        // Do any additional setup after loading the view.
         let cellWidth = screenSize.width / CGFloat(maze[1].count)
-        let cellHeight = (screenSize.height + 80) / CGFloat(maze.count)
+        let cellHeight = screenSize.height / CGFloat(maze.count)
         
         let celloffsetX = screenSize.width / CGFloat(maze[1].count*2)
         let celloffsetY = screenSize.height / CGFloat(maze.count*2)
