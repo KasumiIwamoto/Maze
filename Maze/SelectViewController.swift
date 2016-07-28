@@ -9,13 +9,12 @@
 import UIKit
 
 class SelectViewController: UIViewController {
-    var path: String!     // this value should be set from the outer
+    var path: String!   
     var fullPath: String!
     var maze: [[Int]] = []
     let screenSize = UIScreen.mainScreen().bounds.size
     var wallRectArray = [CGRect]()
-    
-    
+    var number :Int!
     @IBOutlet weak var myLabel: UILabel!
     @IBOutlet weak var myTextView: UITextView!
     //@IBOutlet weak var myImage : UIImageView!
@@ -45,6 +44,7 @@ class SelectViewController: UIViewController {
                     appDelegate.rows = rows
                     appDelegate.cols = cols
                     appDelegate.map = map
+                    appDelegate.number = number
                     print("\(rows) \(cols) \(map.count)")
                     dismissViewControllerAnimated(true, completion: nil)
                 }
@@ -119,7 +119,7 @@ class SelectViewController: UIViewController {
         setup()
         fileContents()        // Do any additional setup after loading the view.
         let cellWidth = screenSize.width / CGFloat(maze[1].count)
-        let cellHeight = screenSize.height / CGFloat(maze.count)
+        let cellHeight = (screenSize.height + 40) / CGFloat(maze.count)
         
         let celloffsetX = screenSize.width / CGFloat(maze[1].count*2)
         let celloffsetY = screenSize.height / CGFloat(maze.count*2)

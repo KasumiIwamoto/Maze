@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var rows: Int!
     var cols: Int!
     var map: [Int]!
+    var number :Int!
 
     var window: UIWindow?
 

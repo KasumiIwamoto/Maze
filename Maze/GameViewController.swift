@@ -8,50 +8,34 @@
 
 import UIKit
 import CoreMotion
-
 class GameViewController: UIViewController {
     var playerView:UIView!
     var playerMotionManeger:CMMotionManager!
     var speedX:Double = 0.0
     var speedY:Double = 0.0
-    var path: String!     // this value should be set from the outer
+    var manager: NSFileManager!
     var fullPath: String!
-    var maze: [[Int]] = []
-    
+    var documentsPath: String!
+    var paths: Array<String>!
+    var path: String!
     let screenSize = UIScreen.mainScreen().bounds.size
-    /*var maze = [
-     [2,1,0,0,0],
-     [0,1,1,1,0],
-     [0,0,1,1,0],
-     [1,0,0,1,0],
-     [1,1,0,0,3],
-     ]*/
+    var maze = [
+        [2,1,0,0,0],
+        [0,1,1,1,0],
+        [0,0,1,1,0],
+        [1,0,0,1,0],
+        [1,1,0,0,3],
+        ]
     //0が道、1が壁、2がスタート、3がゴール
     var goalView:UIView!
     var startView:UIView!
     var wallRectArray = [CGRect]()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let a:[Int] = ""
-        var rows:[Int] = []
-        var cols:[Int] = []
-        if (rows != nil) && (cols != nil) {
-            var map = Array<Int>()
-            // success
-            let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            appDelegate.rows = rows
-            appDelegate.cols = cols
-            appDelegate.map = map
-            //print("\(rows) \(cols) \(map.count)")
-            dismissViewControllerAnimated(true, completion: nil)
-        }
-        
-        
-        
+        manager = NSFileManager.defaultManager()
+        documentsPath = NSHomeDirectory() + "/Documents"
         let cellWidth = screenSize.width / CGFloat(maze[0].count)
-        let cellHeight = screenSize.height / CGFloat(maze.count)
+        let cellHeight = (screenSize.height-20) / CGFloat(maze.count)
         
         let celloffsetX = screenSize.width / CGFloat(maze[0].count*2)
         let celloffsetY = screenSize.height / CGFloat(maze.count*2)
@@ -88,19 +72,21 @@ class GameViewController: UIViewController {
         playerMotionManeger.accelerometerUpdateInterval = 0.025
         self.startAccelerometer()
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    @IBAction func tapLoad(sender: AnyObject) {
+        setup()
+        fileContents()
+    }
     func createView(x x:Int,y:Int,width:CGFloat,height:CGFloat,offsetX:CGFloat = 0,offsetY:CGFloat = 0)->UIView{
-        let rect = CGRect(x: 0,y: 0,width: width,height: height)
+        let rect = CGRect(x: 0,y: 20,width: width,height: height)
         let view = UIView(frame: rect)
         
         let center = CGPoint(
             x: offsetX + width * CGFloat(x),
-            y: offsetY + height * CGFloat(y)
+            y: offsetY + 60 + height * CGFloat(y)
         )
         view.center = center
         return view
@@ -161,7 +147,6 @@ class GameViewController: UIViewController {
         gameCheckAlert.addAction(retryAction)
         gameCheckAlert.addAction(backAction)
         self.presentViewController(gameCheckAlert,animated: true,completion: nil)
-        
     }
     func retry(){
         //位置を初期化
@@ -177,10 +162,68 @@ class GameViewController: UIViewController {
     func back(){
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    func refreshPaths() {
+        paths = manager.subpathsAtPath(documentsPath)
+    }
+    override func viewWillAppear(animated: Bool) {
+        refreshPaths()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "backtoTop"){
             let game:ViewController = (segue.destinationViewController as? ViewController)!
         }
+    }
+    func fileContents() {
+        maze.removeAll()
+        let manager:NSFileManager = NSFileManager.defaultManager()
+        var isDir: ObjCBool = false
+        let flag = manager.fileExistsAtPath(fullPath, isDirectory:&isDir)
+        if flag && Bool(isDir) {
+            //myTextView.text = "[[Directory]]"
+        } else if flag {
+            if fullPath.hasSuffix(".txt") {
+                do {
+                    let text = try NSString(contentsOfFile: fullPath, encoding: NSUTF8StringEncoding) as String
+                    text.enumerateLines({ (line, stop) in
+                        print("line...\(line)")
+                        print("stop...\(stop)")
+                        let item = line.componentsSeparatedByString(" ").map({str in Int(str)!})
+                        self.maze.append(item)
+                    })
+                    print(self.maze)
+                } catch let error as NSError {
+                    let alert: UIAlertController = UIAlertController(title:"Selected File",
+                                                                     message: "cannot read .txt file: "+String(error),
+                                                                     preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title:"Cancel",style:UIAlertActionStyle.Cancel,handler:nil))
+                    presentViewController(alert,animated:true, completion:nil)
+                    
+                }
+            } else {
+                //myTextView.text = "[[not directory, but has no \".txt\" suffix]]"
+            }
+        } else {
+            let alert: UIAlertController = UIAlertController(title:"Selected File",
+                                                             message: "No such file exists",
+                                                             preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title:"Cancel",style:UIAlertActionStyle.Cancel,handler:nil))
+            presentViewController(alert,animated:true, completion:nil)
+        }
+    }
+    func setup() {
+        if paths.count > 0{
+            path = paths[0]
+        }
+        if path == nil {
+            let alert: UIAlertController = UIAlertController(title:"Selected File",
+                                                             message: "path is nil: ",
+                                                             preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title:"Cancel",style:UIAlertActionStyle.Cancel,handler:nil))
+            presentViewController(alert,animated:true, completion:nil)
+            path = ""
+        }
+        fullPath = NSHomeDirectory() + "/Documents/" + path
     }
     /*
      // MARK: - Navigation
@@ -191,5 +234,4 @@ class GameViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    
 }
