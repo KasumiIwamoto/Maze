@@ -9,7 +9,7 @@
 import UIKit
 
 class SelectViewController: UIViewController {
-    var path: String!   
+    var path: String!
     var fullPath: String!
     var maze: [[Int]] = []
     let screenSize = UIScreen.mainScreen().bounds.size
@@ -26,20 +26,20 @@ class SelectViewController: UIViewController {
     }
     @IBAction func tapLoad(sender: AnyObject) {
         let map:[Int] = maze[0]
-        if map.count == 2 {
-            let rows = map[0]
-            let cols = map[1]
-            
-            // success
-            let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            appDelegate.rows = rows
-            appDelegate.cols = cols
-            appDelegate.map = map
-            appDelegate.number = number
-            print("number...\(number)")
-            print("\(rows) \(cols) \(map.count)")
-            dismissViewControllerAnimated(true, completion: nil)
-        }
+        
+        let rows = maze.count
+        let cols = map.count
+        
+        // success
+        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.rows = rows
+        appDelegate.cols = cols
+        appDelegate.map = map
+        appDelegate.number = number
+        print("number...\(number)")
+        print("\(rows) \(cols) \(map.count)")
+        dismissViewControllerAnimated(true, completion: nil)
+        
     }
     @IBAction func tapRemove(sender: AnyObject) {
         do {
@@ -106,9 +106,9 @@ class SelectViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         setup()
-        fileContents()        // Do any additional setup after loading the view.
+        fileContents()      // Do any additional setup after loading the view.
         let cellWidth = screenSize.width / CGFloat(maze[1].count)
-        let cellHeight = screenSize.height / CGFloat(maze.count)
+        let cellHeight = (screenSize.height-80) / CGFloat(maze.count)
         
         let celloffsetX = screenSize.width / CGFloat(maze[1].count*2)
         let celloffsetY = screenSize.height / CGFloat(maze.count*2)

@@ -17,6 +17,7 @@
 		4D94519B1D3CA80E00065AFD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D94519A1D3CA80E00065AFD /* ListViewController.swift */; };
 		4D94519D1D3CA82000065AFD /* SelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D94519C1D3CA82000065AFD /* SelectViewController.swift */; };
 		4D94519F1D3CA99700065AFD /* iPhone2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D94519E1D3CA99700065AFD /* iPhone2.png */; };
+		4DAF300F1D4AE89700C33C99 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DAF300E1D4AE89700C33C99 /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		4D94519A1D3CA80E00065AFD /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		4D94519C1D3CA82000065AFD /* SelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectViewController.swift; sourceTree = "<group>"; };
 		4D94519E1D3CA99700065AFD /* iPhone2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone2.png; sourceTree = "<group>"; };
+		4DAF300E1D4AE89700C33C99 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		4D41DF311D054263008DA79F /* Maze */ = {
 			isa = PBXGroup;
 			children = (
+				4DAF300E1D4AE89700C33C99 /* icon.png */,
 				4D94519E1D3CA99700065AFD /* iPhone2.png */,
 				4D41DF321D054263008DA79F /* AppDelegate.swift */,
 				4D41DF341D054263008DA79F /* ViewController.swift */,
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D41DF3D1D054263008DA79F /* LaunchScreen.storyboard in Resources */,
+				4DAF300F1D4AE89700C33C99 /* icon.png in Resources */,
 				4D94519F1D3CA99700065AFD /* iPhone2.png in Resources */,
 				4D41DF3A1D054263008DA79F /* Assets.xcassets in Resources */,
 				4D41DF381D054263008DA79F /* Main.storyboard in Resources */,
